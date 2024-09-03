@@ -1,9 +1,18 @@
 # MTG_DraftTimer V 0.0.1
- a web based Magic the Gathering Timer for Draft 
+ a web based Magic the Gathering Timer for Draft
+ If you're here, it's probably because you love to Play Draft, know the format and are looking for tools that will allow you and your friends to better play your Drafts. 
+This Draft Timer was made in a few minutes using WebSim.ai but to improve its functions and open it more to the public I decided to replicate it here on Github, I hope you find it useful and share it. 
 
-<img src="https://app.milanote.com/media/p/images/1QemEr1VU5kd5d/gMu/image.png" width="40%">
+Github Site Link: 
 
-<img src="ReadmeAssets/DraftTimerLogo.png" width="40%">
+Websim.ai Link: https://websim.ai//@Gojan747/magic-the-gathering-draft-timer-1
+
+<img src="https://app.milanote.com/media/p/images/1QemEr1VU5kd5d/gMu/image.png" width="39%"> <img src="https://app.milanote.com/media/p/images/1SLCIG1BgqWU7u/rgJ/DraftTimerLogo.png" width="40%">
+
+Logo
+
+La Meta
+
 
 
 
