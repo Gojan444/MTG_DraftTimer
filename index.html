@@ -1,0 +1,443 @@
+<html><head><base href="https://websim-creation-engine.com/mtg-draft-timer-v11/">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Magic: The Gathering Draft Timer</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #1a1a1a;
+    color: #fff;
+  }
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+  }
+  h1 {
+    margin-bottom: 20px;
+  }
+  #timer-container {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+  }
+  #timer-circle {
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+    transition: stroke 0.3s;
+  }
+  #timer-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 48px;
+    font-weight: bold;
+  }
+  .button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .button:hover {
+    background-color: #45a049;
+  }
+  .button img {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+  }
+  #pack-pick-info {
+    font-size: 24px;
+    margin-top: 20px;
+  }
+  .hamburger-menu {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+  }
+  .menu-toggle {
+    display: block;
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+    background-color: #4CAF50;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .menu-toggle span {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: white;
+    margin: 5px 0;
+  }
+  .menu-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 40px;
+    background-color: #333;
+    padding: 20px;
+    border-radius: 5px;
+  }
+  .menu-content.active {
+    display: block;
+  }
+  .menu-content label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  .menu-content input {
+    width: 50px;
+    padding: 5px;
+    margin-left: 10px;
+  }
+  .language-selector {
+    margin-top: 10px;
+  }
+  .language-selector h3 {
+    margin-bottom: 10px;
+  }
+  .language-options {
+    display: flex;
+    justify-content: space-around;
+  }
+  .language-option {
+    cursor: pointer;
+    opacity: 0.5;
+    transition: opacity 0.3s;
+  }
+  .language-option.active {
+    opacity: 1;
+  }
+  .pause-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+  .pause-overlay.active {
+    opacity: 1;
+  }
+  .navigation-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+  }
+</style>
+</head>
+<body>
+  <div class="hamburger-menu">
+    <div class="menu-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <div class="menu-content">
+      <label>
+        <span class="label-text">Number of Boosters:</span>
+        <input type="number" id="booster-count" value="3" min="1">
+      </label>
+      <label>
+        <span class="label-text">Number of Cards per Booster:</span>
+        <input type="number" id="cards-per-booster" value="14" min="1">
+      </label>
+      <div class="language-selector">
+        <h3>Language</h3>
+        <div class="language-options">
+          <img src="https://flagicons.lipis.dev/flags/4x3/us.svg" alt="English" class="language-option active" data-lang="en" width="30" height="20">
+          <img src="https://flagicons.lipis.dev/flags/4x3/mx.svg" alt="Español" class="language-option" data-lang="es" width="30" height="20">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <h1>Magic: The Gathering Draft Timer</h1>
+    <div id="timer-container">
+      <svg width="200" height="200">
+        <circle cx="100" cy="100" r="90" fill="none" stroke="#333" stroke-width="20" />
+        <circle id="timer-circle" cx="100" cy="100" r="90" fill="none" stroke="#4CAF50" stroke-width="20" stroke-dasharray="565.48" stroke-dashoffset="0" />
+      </svg>
+      <div id="timer-text">40</div>
+      <div class="pause-overlay">PAUSED</div>
+    </div>
+    <div id="pack-pick-info">Pack 1 Pick 1</div>
+    <button id="start-button" class="button">
+      <img src="/a/93821eca-4a3d-423e-8167-6f8a695148e1" alt="Play" width="20" height="20">
+      <span>Start Timer</span>
+    </button>
+    <button id="pause-button" class="button">
+      <img src="/a/6de4c75a-8f9a-4190-9fd5-462264f61cff" alt="Pause" width="20" height="20">
+      <span>Pause</span>
+    </button>
+    <div class="navigation-buttons">
+      <button id="previous-pick" class="button">Previous Pick</button>
+      <button id="next-pick" class="button">Next Pick</button>
+    </div>
+  </div>
+
+  <audio id="countdown-sound" src="https://cdn.freesound.org/previews/196/196979_2747497-lq.mp3"></audio>
+  <audio id="timer-end-sound" src="https://cdn.freesound.org/previews/179/179495_2742396-lq.mp3"></audio>
+
+  <script>
+    const timerCircle = document.getElementById('timer-circle');
+    const timerText = document.getElementById('timer-text');
+    const startButton = document.getElementById('start-button');
+    const pauseButton = document.getElementById('pause-button');
+    const packPickInfo = document.getElementById('pack-pick-info');
+    const menuToggle = document.querySelector('.menu-toggle');
+    const menuContent = document.querySelector('.menu-content');
+    const boosterCountInput = document.getElementById('booster-count');
+    const cardsPerBoosterInput = document.getElementById('cards-per-booster');
+    const languageOptions = document.querySelectorAll('.language-option');
+    const pauseOverlay = document.querySelector('.pause-overlay');
+    const previousPickButton = document.getElementById('previous-pick');
+    const nextPickButton = document.getElementById('next-pick');
+    const countdownSound = document.getElementById('countdown-sound');
+    const timerEndSound = document.getElementById('timer-end-sound');
+
+    const circumference = 2 * Math.PI * 90;
+    let timeLeft = 40;
+    let timerInterval;
+    let currentPack = 1;
+    let currentPick = 1;
+    let boosterCount = 3;
+    let cardsPerBooster = 14;
+    let isPaused = false;
+    let currentLanguage = 'en';
+    let isReviewMode = false;
+
+    const pickTimes = {
+      15: 40, 14: 40, 13: 35, 12: 30, 11: 25, 10: 25,
+      9: 20, 8: 20, 7: 15, 6: 10, 5: 10, 4: 5, 3: 5, 2: 5, 1: 5
+    };
+
+    const translations = {
+      en: {
+        title: 'Magic: The Gathering Draft Timer',
+        startButton: 'Start Timer',
+        restartButton: 'Restart Pick',
+        pauseButton: 'Pause',
+        resumeButton: 'Resume',
+        packPick: 'Pack {pack} Pick {pick}',
+        review: 'Review',
+        boosterCount: 'Number of Boosters:',
+        cardsPerBooster: 'Number of Cards per Booster:',
+        paused: 'PAUSED',
+        previousPick: 'Previous Pick',
+        nextPick: 'Next Pick',
+        language: 'Language'
+      },
+      es: {
+        title: 'Temporizador de Draft de Magic: The Gathering',
+        startButton: 'Iniciar Timer',
+        restartButton: 'Reiniciar Pick',
+        pauseButton: 'Pausar',
+        resumeButton: 'Reanudar',
+        packPick: 'Pack {pack} Pick {pick}',
+        review: 'Revisión',
+        boosterCount: 'Número de Boosters:',
+        cardsPerBooster: 'Número de Cartas por Booster:',
+        paused: 'PAUSADO',
+        previousPick: 'Pick Anterior',
+        nextPick: 'Siguiente Pick',
+        language: 'Idioma'
+      }
+    };
+
+    menuToggle.addEventListener('click', () => {
+      menuContent.classList.toggle('active');
+    });
+
+    function startTimer() {
+      if (timerInterval) clearInterval(timerInterval);
+      timeLeft = isReviewMode ? 60 : getPickTime();
+      updateTimer();
+      resetTimerColor();
+      timerInterval = setInterval(() => {
+        if (!isPaused) {
+          timeLeft--;
+          updateTimer();
+          if (timeLeft <= 5) {
+            timerCircle.style.stroke = '#ff0000';
+            countdownSound.play();
+          }
+          if (timeLeft === 1) {
+            timerEndSound.play();
+          }
+          if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            if (isReviewMode) {
+              startNextPack();
+            } else {
+              nextPick();
+            }
+          }
+        }
+      }, 1000);
+    }
+
+    function updateTimer() {
+      const percentage = timeLeft / (isReviewMode ? 60 : getPickTime());
+      const strokeDashoffset = circumference * (1 - percentage);
+      timerCircle.style.strokeDashoffset = strokeDashoffset;
+      timerText.textContent = timeLeft;
+    }
+
+    function nextPick() {
+      currentPick++;
+      if (currentPick > cardsPerBooster) {
+        startReviewTimer();
+      } else {
+        updatePackPickInfo();
+        startTimer();
+      }
+    }
+
+    function previousPick() {
+      if (isReviewMode) {
+        isReviewMode = false;
+        currentPick = cardsPerBooster;
+      } else if (currentPick > 1) {
+        currentPick--;
+      } else if (currentPack > 1) {
+        currentPack--;
+        currentPick = cardsPerBooster;
+      }
+      updatePackPickInfo();
+      startTimer();
+    }
+
+    function startReviewTimer() {
+      isReviewMode = true;
+      timeLeft = 60;
+      updateTimer();
+      resetTimerColor();
+      packPickInfo.textContent = translations[currentLanguage].review;
+      startTimer();
+    }
+
+    function startNextPack() {
+      isReviewMode = false;
+      currentPack++;
+      currentPick = 1;
+      if (currentPack > boosterCount) {
+        currentPack = 1;
+        startButton.querySelector('span').textContent = translations[currentLanguage].startButton;
+        clearInterval(timerInterval);
+        return;
+      }
+      updatePackPickInfo();
+      startTimer();
+    }
+
+    function updatePackPickInfo() {
+      if (!isReviewMode) {
+        packPickInfo.textContent = translations[currentLanguage].packPick
+          .replace('{pack}', currentPack)
+          .replace('{pick}', currentPick);
+      } else {
+        packPickInfo.textContent = translations[currentLanguage].review;
+      }
+    }
+
+    function getPickTime() {
+      return pickTimes[cardsPerBooster - currentPick + 1] || 5;
+    }
+
+    function togglePause() {
+      isPaused = !isPaused;
+      updatePauseButtonState();
+      pauseOverlay.classList.toggle('active', isPaused);
+      pauseOverlay.textContent = translations[currentLanguage].paused;
+    }
+
+    function updatePauseButtonState() {
+      const pauseButtonImg = pauseButton.querySelector('img');
+      const pauseButtonText = pauseButton.querySelector('span');
+      if (isPaused) {
+        pauseButtonImg.src = "/a/93821eca-4a3d-423e-8167-6f8a695148e1";
+        pauseButtonImg.alt = "Play";
+        pauseButtonText.textContent = translations[currentLanguage].resumeButton;
+      } else {
+        pauseButtonImg.src = "/a/6de4c75a-8f9a-4190-9fd5-462264f61cff";
+        pauseButtonImg.alt = "Pause";
+        pauseButtonText.textContent = translations[currentLanguage].pauseButton;
+      }
+    }
+
+    function resetTimerColor() {
+      timerCircle.style.stroke = '#4CAF50';
+    }
+
+    startButton.addEventListener('click', () => {
+      boosterCount = parseInt(boosterCountInput.value);
+      cardsPerBooster = parseInt(cardsPerBoosterInput.value);
+      currentPack = 1;
+      currentPick = 1;
+      isReviewMode = false;
+      updatePackPickInfo();
+      startTimer();
+      startButton.querySelector('span').textContent = translations[currentLanguage].restartButton;
+    });
+
+    pauseButton.addEventListener('click', togglePause);
+    previousPickButton.addEventListener('click', previousPick);
+    nextPickButton.addEventListener('click', nextPick);
+
+    languageOptions.forEach(option => {
+      option.addEventListener('click', () => {
+        currentLanguage = option.dataset.lang;
+        languageOptions.forEach(opt => opt.classList.remove('active'));
+        option.classList.add('active');
+        updateTranslations();
+      });
+    });
+
+    function updateTranslations() {
+      document.title = translations[currentLanguage].title;
+      document.querySelector('h1').textContent = translations[currentLanguage].title;
+      startButton.querySelector('span').textContent = translations[currentLanguage].startButton;
+      updatePauseButtonState();
+      updatePackPickInfo();
+      document.querySelectorAll('.label-text')[0].textContent = translations[currentLanguage].boosterCount;
+      document.querySelectorAll('.label-text')[1].textContent = translations[currentLanguage].cardsPerBooster;
+      pauseOverlay.textContent = translations[currentLanguage].paused;
+      previousPickButton.textContent = translations[currentLanguage].previousPick;
+      nextPickButton.textContent = translations[currentLanguage].nextPick;
+      document.querySelector('.language-selector h3').textContent = translations[currentLanguage].language;
+    }
+
+    timerCircle.style.strokeDasharray = `${circumference} ${circumference}`;
+    timerCircle.style.strokeDashoffset = `${circumference}`;
+    updateTranslations();
+  </script>
+</body>
+</html>
