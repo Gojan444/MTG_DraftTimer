@@ -3,7 +3,7 @@
 
 <img src="https://app.milanote.com/media/p/images/1QemEr1VU5kd5d/gMu/image.png" width="40%">
 
-![](ReadmeAssets/DraftTimerLogo.png )
+<img src="ReadmeAssets/DraftTimerLogo.png" width="40%">
 
 
 
