@@ -13,7 +13,7 @@ Websim.ai Link: https://websim.ai//@Gojan747/magic-the-gathering-draft-timer-1
 Logo
 
 ### Preview 
-<img src="https://app.milanote.com/media/p/images/1SLDaG1BgqWU7v/PGU/image.png" width="80%">  
+<img src="ReadmeAssets/Imgs/Preview.png" width="80%">  
 
 ![]() 
 
