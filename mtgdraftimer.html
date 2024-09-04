@@ -1,0 +1,64 @@
+<html>
+    <head><link rel="stylesheet" href="assets/css/main.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magic: The Gathering Draft Timer</title>
+    
+    <link rel="stylesheet" href="styles.css"><script src="script.js"></script></head>
+    <body>
+      <div class="hamburger-menu">
+        <div class="menu-toggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="menu-content">
+          <label>
+            <span class="label-text">Number of Boosters:</span>
+            <input type="number" id="booster-count" value="3" min="1">
+          </label>
+          <label>
+            <span class="label-text">Number of Cards per Booster:</span>
+            <input type="number" id="cards-per-booster" value="14" min="1">
+          </label>
+          <div class="language-selector">
+            <h3>Language</h3>
+            <div class="language-options">
+              <img src="https://flagicons.lipis.dev/flags/4x3/us.svg" alt="English" class="language-option active" data-lang="en" width="30" height="20">
+              <img src="https://flagicons.lipis.dev/flags/4x3/mx.svg" alt="Español" class="language-option" data-lang="es" width="30" height="20">
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <div class="container">
+        <h1>Magic: The Gathering Draft Timer</h1>
+        <div id="timer-container">
+          <svg width="200" height="200">
+            <circle cx="100" cy="100" r="90" fill="none" stroke="#333" stroke-width="20"></circle>
+            <circle id="timer-circle" cx="100" cy="100" r="90" fill="none" stroke="#4CAF50" stroke-width="20" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
+          </svg>
+          <div id="timer-text">40</div>
+          <div class="pause-overlay">PAUSED</div>
+        </div>
+        <div id="pack-pick-info">Pack 1 Pick 1</div>
+        <button id="start-button" class="button">
+          <img src="/a/93821eca-4a3d-423e-8167-6f8a695148e1" alt="Play" width="20" height="20">
+          <span>Start Timer</span>
+        </button>
+        <button id="pause-button" class="button">
+          <img src="/a/6de4c75a-8f9a-4190-9fd5-462264f61cff" alt="Pause" width="20" height="20">
+          <span>Pause</span>
+        </button>
+        <div class="navigation-buttons">
+          <button id="previous-pick" class="button">Previous Pick</button>
+          <button id="next-pick" class="button">Next Pick</button>
+        </div>
+      </div>
+    
+      <audio id="countdown-sound" src="https://cdn.freesound.org/previews/196/196979_2747497-lq.mp3"></audio>
+      <audio id="timer-end-sound" src="https://cdn.freesound.org/previews/179/179495_2742396-lq.mp3"></audio>
+    
+      
+    
+    </body></html>

@@ -1,0 +1,149 @@
+
+body {
+    font-family: Arial, sans-serif;
+    margin: "number">0;
+    padding: "number">0;
+    background-color: "number">#1a1a1a;
+    color: "number">#fff;
+  }
+  .container {
+    max-width: "number">600px;
+    margin: "number">0 auto;
+    padding: "number">20px;
+    text-align: center;
+  }
+  h"number">1 {
+    margin-bottom: "number">20px;
+  }
+  #timer-container {
+    position: relative;
+    width: "number">200px;
+    height: "number">200px;
+    margin: "number">0 auto;
+  }
+  #timer-circle {
+    transform: rotate(-"number">90deg);
+    transform-origin: "number">50% "number">50%;
+    transition: stroke "number">0."number">3s;
+  }
+  #timer-text {
+    position: absolute;
+    top: "number">50%;
+    left: "number">50%;
+    transform: translate(-"number">50%, -"number">50%);
+    font-size: "number">48px;
+    font-weight: bold;
+  }
+  .button {
+    margin-top: "number">20px;
+    padding: "number">10px "number">20px;
+    font-size: "number">18px;
+    background-color: "number">#4CAF50;
+    color: white;
+    border: none;
+    border-radius: "number">5px;
+    cursor: pointer;
+    transition: background-color "number">0."number">3s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  ."keyword">button:hover {
+    background-color: "number">#45a049;
+  }
+  .button img {
+    width: "number">20px;
+    height: "number">20px;
+    margin-right: "number">5px;
+  }
+  #pack-pick-info {
+    font-size: "number">24px;
+    margin-top: "number">20px;
+  }
+  .hamburger-menu {
+    position: fixed;
+    top: "number">20px;
+    right: "number">20px;
+    z-index: "number">1000;
+  }
+  .menu-toggle {
+    display: block;
+    width: "number">30px;
+    height: "number">30px;
+    padding: "number">5px;
+    background-color: "number">#4CAF50;
+    border-radius: "number">5px;
+    cursor: pointer;
+  }
+  .menu-toggle span {
+    display: block;
+    width: "number">100%;
+    height: "number">3px;
+    background-color: white;
+    margin: "number">5px "number">0;
+  }
+  .menu-content {
+    display: none;
+    position: absolute;
+    right: "number">0;
+    top: "number">40px;
+    background-color: "number">#333;
+    padding: "number">20px;
+    border-radius: "number">5px;
+  }
+  .menu-content.active {
+    display: block;
+  }
+  .menu-content label {
+    display: block;
+    margin-bottom: "number">10px;
+  }
+  .menu-content input {
+    width: "number">50px;
+    padding: "number">5px;
+    margin-left: "number">10px;
+  }
+  .language-selector {
+    margin-top: "number">10px;
+  }
+  .language-selector h"number">3 {
+    margin-bottom: "number">10px;
+  }
+  .language-options {
+    display: flex;
+    justify-content: space-around;
+  }
+  .language-option {
+    cursor: pointer;
+    opacity: "number">0."number">5;
+    transition: opacity "number">0."number">3s;
+  }
+  .language-option.active {
+    opacity: "number">1;
+  }
+  .pause-overlay {
+    position: absolute;
+    top: "number">0;
+    left: "number">0;
+    width: "number">100%;
+    height: "number">100%;
+    background-color: rgba("number">0, "number">0, "number">0, "number">0."number">5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: "number">24px;
+    font-weight: bold;
+    opacity: "number">0;
+    transition: opacity "number">0."number">3s;
+    pointer-events: none;
+  }
+  .pause-overlay.active {
+    opacity: "number">1;
+  }
+  .navigation-buttons {
+    display: flex;
+    justify-content: center;
+    gap: "number">10px;
+    margin-top: "number">20px;
+  }
+
