@@ -7,12 +7,15 @@ Github Site Link: https://gojan444.github.io/MTG_DraftTimer/
 
 Websim.ai Link: https://websim.ai//@Gojan747/magic-the-gathering-draft-timer-1
 
-<img src="https://app.milanote.com/media/p/images/1QemEr1VU5kd5d/gMu/image.png" width="39%"> <img src="https://app.milanote.com/media/p/images/1SLCIG1BgqWU7u/rgJ/DraftTimerLogo.png" width="40%">
+<img src="https://app.milanote.com/media/p/images/1QemEr1VU5kd5d/gMu/image.png" width="39%"> <img src="ReadmeAssets/Imgs/DraftTimerLogo.png" width="40%">
 
 Logo
 
 ### Preview 
 <img src="https://app.milanote.com/media/p/images/1SLDaG1BgqWU7v/PGU/image.png" width="80%">  
+
+![]() 
+
 
 
 
